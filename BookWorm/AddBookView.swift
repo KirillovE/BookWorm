@@ -31,11 +31,7 @@ struct AddBookView: View {
         }
 
         Section("Add note") {
-          Picker("Rating", selection: $rating) {
-            ForEach(1 ..< 6) { index in
-              Text("\(index)").tag(index)
-            }
-          }
+          RatingView(rating: $rating)
           TextEditor(text: $note)
         }
 
