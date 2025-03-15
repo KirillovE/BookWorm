@@ -6,17 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+  @Environment(\.modelContext) var modelContext
+  @Query var books: [Book]
+  @State var showAdd = false
+
+  var body: some View {
+    NavigationStack {
+      Text("Books count: \(books.count)")
+      .navigationBarTitle("BookWorm")
+      .sheet(isPresented: $showAdd) {
+        AddBookView()
+      }
+      .toolbar {
+        Button("Add", systemImage: "plus") {
+          showAdd.toggle()
         }
-        .padding()
+      }
     }
+  }
 }
 
 #Preview {
